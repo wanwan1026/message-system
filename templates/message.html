@@ -9,7 +9,7 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/post.css') }}"/>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}"/>
     </head>
-    <body>
+    <body onload="getdata();">
         <header>
             <div class="header_box">
                 <div class="header_logo">
@@ -21,36 +21,51 @@
         <section>
             <div class="post">
                 <div class="post_box">
-                    <textarea class="post_text" placeholder="嗨 ~ 想和我們分享甚麼消息呢 ( ˙ ∀ ˙ ) ? "></textarea> 
+                    <textarea id="post_text" class="post_text" placeholder="嗨 ~ 想和我們分享甚麼消息呢 ( ˙ ∀ ˙ ) ? "></textarea> 
                 </div>
                 <hr style="width: 90%;border: 0.5px #e7e2e2 solid;">
+
                 <div class="post_btn_box">
-                    <button class="post_btn">分享照片</button>
+                    <input class="post_photo" id="file" name="file" type="file" accept="image/gif, image/jpeg, image/png">
+                    <button class="post_btn" onclick="post();">分享貼文</button> 
                 </div>
+
             </div>
         </section>
         <div style="max-width: 1200px;margin: 0px auto;">
             <hr style="max-width: 97%; border: #c0baba dashed;">    
         </div>
-        <main>
-            <div class="post_up">
-                <div class="post_up_text">
-                    測試文字。
-                </div>
-            </div>
-            <div class="post_up">
-                <div class="post_up_text">
-                    測試斷行測試斷行測試斷行測試斷行測試斷行測試斷行測試斷行測試斷行測試斷行測試斷行測試斷行測試斷行測試斷行測試斷行測試斷行測試斷行測試斷行。
-                </div>
-            </div>
-            <div class="post_up">
-                <div class="post_up_text">
-                    測試圖片。
-                </div>
-                <img src="{{ url_for('static', filename='resources/r-logo.png') }}">
-            </div>
-        </main>
-        <footer></footer>
+        <main id="main"></main>
     </body>
+    <script type="text/javascript">
+        function getdata(){
+            let loadAPIurl = 'http://127.0.0.1:3000//userpost';
+            fetch(loadAPIurl)
+            .then(function(data) {
+                return data.json();
+            }).then(function(res) {
+                console.log(res);
+                let max_limit = Object.keys(res).length;
+                for(i = max_limit ; i >= 1 ; i--){
+                    let p_text = res[`${i}`]["text"];
+                    let p_url = res[`${i}`]["photo"];
+
+                    let main_box = document.getElementById("main");
+                    let p_box = document.createElement("div");
+                    let p_box_textbox = document.createElement("div");
+                    let p_box_textbox_text = document.createTextNode(`${p_text}`);
+                    let p_box_img = document.createElement("img");
+                    p_box_textbox.appendChild(p_box_textbox_text)
+                    p_box_textbox.className = "post_up_text"
+                    p_box.appendChild(p_box_textbox)
+                    p_box_img.src = p_url
+                    p_box_img.className = "postimg"
+                    p_box.appendChild(p_box_img)
+                    p_box.className = "post_up"
+                    main_box.appendChild(p_box)
+                }
+            })
+        }
+    </script>
     <script src="{{ url_for('static', filename='js/message.js') }}"></script>
 </html>

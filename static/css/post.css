@@ -32,12 +32,32 @@ textarea{
 .post_btn_box{
     width: 90%;
     margin: 0px auto;
+    flex: inline-block;
 }
 .post_btn{
-    width: 100px;
+    width: 20%;
     height: 35px;
     border-radius: 20px;
     background-color: #ffffff;
     color: #ec73a2;
     border:1px #ec73a2 solid;
+    float:right;
+    cursor: pointer; 
+}
+.post_btn:active{
+    background-color: black;
+    color: #ffffff;
+    border:1px #ffffff;
+}
+.post_photo{
+    width: 180px;
+}
+.postimg{
+    width: 50%;
+}
+
+@media (max-width:400px){
+    .post{height: 340px;}
+    .post_btn_box{flex: none;}
+    .post_btn{width: 80%;margin-top: 10px;float:none;margin-left: 10%;}
 }
