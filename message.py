@@ -81,7 +81,7 @@ def userpost():
     os.remove(filename)
 
     # 圖片網址
-    fileurl = "https://wanwanbucket.s3.ap-northeast-1.amazonaws.com/" + file_name
+    fileurl = "https://d2xsmezj0utol9.cloudfront.net/" + file_name
 
     # 資料上傳RDS
     signup = pymysql.connect(
