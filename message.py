@@ -67,7 +67,7 @@ def userpost():
     file = open(filename,'rb')
     bucket_name = "wanwanbucket"
     now = datetime.datetime.now().strftime("%Y%m%d%H:%M:%S")
-    file_name = now + "/" + filename
+    file_name = now + filename
     acl="public-read"
     s3.upload_fileobj(
         file,
